@@ -1,0 +1,19 @@
+@import "../fixedStyles/genaral.scss";
+
+footer{
+        padding: 20px;
+        background-color: RGB(118,118,118);
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+    
+    
+    .AshuraFooter{
+      margin:0 auto;
+      font-size: 30px; 
+      font-family: $base-font; 
+      color:$base-color;
+    }
+}

@@ -1,0 +1,14 @@
+@import "../fixedStyles/genaral.scss";
+
+header{
+    padding: 40px;
+    background-color: RGB(17,17,17);
+    
+    h1{
+    margin: 0px;
+      font-size: 40px; 
+      font-family: $base-font; 
+      text-align: center;
+      color: RGB(176,176,176);
+    }
+}

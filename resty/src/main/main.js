@@ -8,7 +8,10 @@ class Main extends React.Component {
       this.state = {
         url: '',
         method:'',
-        hits:[]
+        // hits:[]
+        // count: 0,
+        results: {}
+
       }
      
     }
@@ -25,27 +28,45 @@ class Main extends React.Component {
       let method = e.target.value;
       this.setState({method}) // re-render   }
     }
-    handleClick = e =>{
-      e.preventDefault()
-      this.state.hits.push(
-      <li  key= {this.state.hits.length+1}> <p className='result-method'>{this.state.method}</p>
-      <p className='result-url'>{this.state.url}</p>
-      </li> )
-      let hits= this.state.hits
-      console.log(this.state.hits);
-      this.setState({hits}) // re-render   }
-    }
+    
+    // handleClick = e =>{
+    //   e.preventDefault()
+    //   this.state.hits.push(
+    //   <li  key= {this.state.hits.length+1}> <p className='result-method'>{this.state.method}</p>
+    //   <p className='result-url'>{this.state.url}</p>
+    //   </li> )
+    //   let hits= this.state.hits
+    //   console.log(this.state.hits);
+    //   this.setState({hits}) // re-render   }
+    // }
+    handleSubmit = async (e) => {
+      e.preventDefault();
+      if (this.state.url && this.state.method) {
+            const raw = await fetch(`${this.state.url}`);
+            const data = await raw.json();
+            let head ;
+            raw.headers.forEach(value =>{
+              head = { 'Content-Type': value }
+            })          
+            let results = {
+              Headers: head,
+              Response: data
+            }
+            this.props.handler(results);
+         
+      }
+    };
   
       
     render() {
       return (
         <section id='main-div' >
             
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div id='user-search-div'></div>
               <label className= 'url-label'>URL: </label>
               <input className='url-input' onChange={this.handleInput} />
-              <button className='btn-go' onClick={this.handleClick}>GO!!</button>
+              <button className='btn-go' type='submit'>GO!!</button>
               <br />
               {/* <button  onChange={this.handleMethod} className='method-input' name={this.state.method} value="GET">GET</button>
               <button  onChange={this.handleMethod} className='method-input' name={this.state.method} value="POST">POST</button>
@@ -63,9 +84,7 @@ class Main extends React.Component {
               <label htmlFor="DELETE">DELETE</label>
               
           </form>
-          <div className='result'>
-              <ul>{this.state.hits}</ul>
-          </div>
+         
         </section>
   
   

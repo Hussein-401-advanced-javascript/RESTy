@@ -8,19 +8,31 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: {},
+      result: [],
+      history: [],
 
     };
   }
+  setHistory = (method, url, body) => {
 
-  handleForm = (results) => {
-    this.setState({ result: results });
+    let object = { method, url, body };
+    let history = [...this.state.history, object]
+    this.setState({ history });
+
+    let historyArray = JSON.stringify(this.state.history);
+    localStorage.setItem('historyArray', historyArray);
+
+
+  }
+  handleForm = (result) => {
+    this.setState({ result: result });
   };
+
   render() {
     return (
       <>
-        <Main handler={this.handleForm} />
-        <Result result={this.state.result}/>
+        <Main setHistory={this.setHistory} handler={this.handleForm} toggle={this.toggleLoading} />
+        <Result results={this.state.result}/>
       </>
     );
   }

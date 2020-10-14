@@ -1,39 +1,62 @@
 import React from 'react';
-// import Header from './header/header.js';
-import Main from './main/main.js';
-import Result from './main/results';
+import {BrowserRouter,Route} from 'react-router-dom';
 
+// import './components/css/App.scss'
+// import './/components/css/reset.css'
+import Footer from './components/footer/footer'
+import Header from './components/header/header.js'
+import Form from './components/form/form.js'
+import Results from './components/results/index'
+import History from './components/history/history.js'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: [],
-      history: [],
+      loading : false,
+      result: {},
+      history:[],
+      fill : {}
 
     };
   }
-  setHistory = (method, url, body) => {
-
-    let object = { method, url, body };
-    let history = [...this.state.history, object]
-    this.setState({ history });
-
-    let historyArray = JSON.stringify(this.state.history);
-    localStorage.setItem('historyArray', historyArray);
-
-
+  toggleLoading = () => {
+    this.setState({ loading: !this.state.loading })
   }
-  handleForm = (result) => {
-    this.setState({ result: result });
+
+  handleForm = (results) => {
+    this.setState({ result: results });
   };
+
+  setHistory =(method,url,body)=>{
+    let obj = {method,url,body};
+    let history = [...this.state.history,obj];
+    this.setState({
+      history:history
+    })
+    let hisArray = JSON.stringify(this.state.history);
+    localStorage.setItem('history' , hisArray );
+  }
+
+  fillFormHandler = (method,url,body) =>{
+    this.setState({
+      fill: {method,url,body}
+    })
+  }
 
   render() {
     return (
-      <>
-        <Main setHistory={this.setHistory} handler={this.handleForm} toggle={this.toggleLoading} />
-        <Result results={this.state.result}/>
-      </>
+      <BrowserRouter>
+        <Header/>
+        <Route exact path='/'>
+        <Form fill={this.state.fill} toggleLoading={this.toggleLoading} handler={this.handleForm} setHistory={this.setHistory} />
+        <Results result={this.state.result} loading={this.state.loading}/>
+        </Route>
+        <Route exact path='/history'>
+          <History fillFormHandler={this.fillFormHandler}/>
+        </Route>
+        <Footer/>
+      </BrowserRouter>
     );
   }
 }

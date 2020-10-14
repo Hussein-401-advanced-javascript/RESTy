@@ -1,0 +1,41 @@
+@import "../fixedStyles/genaral.scss";
+
+// header{
+//     padding: 40px;
+//     background-color: RGB(17,17,17);
+    
+//     h1{
+//     margin: 0px;
+//       font-size: 40px; 
+//       font-family: $base-font; 
+//       text-align: center;
+//       color: RGB(176,176,176);
+//     }
+// }
+header {
+  padding: 23px 0px 0px 0px;
+  background-color: RGB(17,17,17);
+  text-align: center;
+    h1{
+      color: rgb(163, 160, 158);
+      // margin: 0 0 0 35px;
+      font-size: 40px;
+    }
+    ul{
+      display: inline-flex;
+      padding: 13px 0 15px 0px;
+      text-decoration: none;
+      list-style-type: none;
+  }
+    li#li2 a{
+      padding-left: 300px;
+      color: RGB(118,118,118);
+  }
+  a{
+    text-decoration: none;
+  }
+  a.active{
+    color:RGB(118,118,118);
+
+}
+}

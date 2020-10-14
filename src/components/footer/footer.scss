@@ -1,0 +1,16 @@
+@import "../fixedStyles/genaral.scss";
+
+footer{
+      
+      background-color: RGB(118,118,118);        
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      margin:0 auto;
+      font-size: 50%; 
+      font-family: $base-font; 
+      color:$base-color;
+    
+}
